@@ -1,12 +1,13 @@
+using System.Security.Claims;
 using DuoLearn.Application;
 using DuoLearn.Application.Interfaces;
 using DuoLearn.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace DuoLearn.Api;
 
+[Authorize]
 [ApiController]
 [Route("users")]
 public class UsersCrontroller : ControllerBase
@@ -20,23 +21,26 @@ public class UsersCrontroller : ControllerBase
         _authService = authService;
     }
 
+    [Authorize]
     [HttpGet]
     [Route("")]
-    public IEnumerable<User> getUsers()
-    {
-        return _userService.GetAllUsers();
-    }
+    public IEnumerable<User> getUsers() => _userService.GetAllUsers();
 
-    // [Authorize]
+    [SetAuthUser]
+    [HttpGet]
+    [Route("me")]
+    public User? getMe() => HttpContext.Items["User"] as User;
+
     [HttpGet("{id}")]
     public ActionResult<User> getUserById([FromRoute] int id)
     {
         User? user = _userService.GetUserById(id);
-        if (user == null) return NotFound();
+        if (user is null) return NotFound();
 
         return Ok(user);
     }
 
+    [AllowAnonymous]
     [HttpPost("login")]
     public async Task<ActionResult<object>> LoginUser(
         [FromBody] LoginDataDto LoginRequest)
@@ -46,9 +50,10 @@ public class UsersCrontroller : ControllerBase
         {
             return Unauthorized(token);
         }
-        return new { token = token };
+        return new { token };
     }
 
+    [AllowAnonymous]
     [HttpPost]
     [Route("")]
     public ActionResult<object> createUser([FromBody] UserDto user)
@@ -58,6 +63,6 @@ public class UsersCrontroller : ControllerBase
             return BadRequest();
         }
         var token = _userService.Create(user);
-        return new { token = token };
+        return new { token };
     }
 }

@@ -6,5 +6,6 @@ public interface IUserService
 {
     IEnumerable<User> GetAllUsers();
     User? GetUserById(int id);
+    Task<User?> GetUserByIdAsync(int id);
     string Create(UserDto user);
 }

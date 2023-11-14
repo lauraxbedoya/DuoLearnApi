@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 
 namespace DuoLearn.Application;
 
-public class JwtProvider : IJwtProvider
+public sealed class JwtProvider : IJwtProvider
 {
     private readonly JwtOptions _options;
 

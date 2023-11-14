@@ -28,27 +28,15 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
 
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
 builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
 
-// builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-.AddJwtBearer(o => o.TokenValidationParameters = new()
-{
-    ValidateIssuer = false,
-    ValidateAudience = false,
-    ValidateLifetime = true,
-    ValidateIssuerSigningKey = false,
-    ValidIssuer = "",
-    ValidAudience = "",
-    IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes("JZjo7raCul4OSkJvg2SY8BfF6va4lTC8jZSImZ9ULRtgqQu5LfQlk4PtPiO3CYDR")
-            )
-});
+builder.Services.AddTransient<AuthenticatedUser>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -68,11 +56,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(MyAllowSpecificOrigins);
+
 app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseCors(MyAllowSpecificOrigins);
+app.UseMiddleware<AuthenticatedUser>();
 
 app.UseAuthorization();
 

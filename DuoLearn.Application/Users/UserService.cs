@@ -4,6 +4,7 @@ using DuoLearn.Infrastructure.Context;
 using DuoLearn.Domain.Enums;
 using DuoLearn.Application.Interfaces;
 using DuoLearn.Application;
+using Microsoft.EntityFrameworkCore;
 
 namespace DuoLearn.Applications
 {
@@ -28,6 +29,11 @@ namespace DuoLearn.Applications
         public User? GetUserById(int id)
         {
             return _context.Users.FirstOrDefault(x => x.Id == id);
+        }
+
+        public async Task<User?> GetUserByIdAsync(int id)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public string Create(UserDto user)
