@@ -7,6 +7,7 @@ using DuoLearn.Api;
 using DuoLearn.Application;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.DataProtection;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -30,6 +31,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
 
