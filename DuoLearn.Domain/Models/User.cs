@@ -11,6 +11,7 @@ namespace DuoLearn.Domain.Models
         public required string Role { get; set; }
         public required bool Active { get; set; }
 
+        public IList<Language> Languages { get; } = new List<Language>();
         public IList<UserLanguage> UserLanguages { get; } = new List<UserLanguage>();
     }
 }
