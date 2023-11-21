@@ -21,7 +21,6 @@ public class UsersCrontroller : ControllerBase
         _authService = authService;
     }
 
-    [Authorize]
     [HttpGet]
     [Route("")]
     public IEnumerable<User> getUsers() => _userService.GetAllUsers();

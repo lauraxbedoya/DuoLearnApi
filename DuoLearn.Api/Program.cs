@@ -46,6 +46,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddTransient<IUserService, UserServices>();
 builder.Services.AddTransient<IAuthServices, AuthService>();
 builder.Services.AddTransient<IJwtProvider, JwtProvider>();
+builder.Services.AddTransient<ILanguageService, LanguageServices>();
 
 var app = builder.Build();
 
@@ -65,8 +66,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseMiddleware<AuthenticatedUser>();
-
-app.UseAuthorization();
 
 app.MapControllers();
 
