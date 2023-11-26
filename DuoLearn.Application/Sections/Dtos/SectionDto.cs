@@ -2,11 +2,20 @@
 
 namespace DuoLearn.Application;
 
-public class SectionDto
+public class CreateSectionDto
 {
-    [Required]
-    public string Name { get; set; } = null!;
+    public int LanguageId { get; set; }
+    public required string Description { get; set; }
+    public required string Color { get; set; }
+    public required int Order { get; set; }
+    public required bool Enabled { get; set; }
+}
 
-    public string? FlagUrl { get; set; } = null!;
 
+public class UpdateSectionDto
+{
+    public string? Description { get; set; }
+    public string? Color { get; set; }
+    public int? Order { get; set; }
+    public bool? Enabled { get; set; }
 }

@@ -1,6 +1,6 @@
-using System.Security.Claims;
 using DuoLearn.Application;
 using DuoLearn.Application.Interfaces;
+using DuoLearn.Domain;
 using DuoLearn.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,20 +12,57 @@ namespace DuoLearn.Api;
 [Route("sections")]
 public class SectionsController : ControllerBase
 {
-    private readonly ILanguageService _languageService;
+    private readonly ISectionService _sectionService;
 
-    public SectionsController(ILanguageService languageService)
+    public SectionsController(ISectionService sectionService)
     {
-        _languageService = languageService;
+        _sectionService = sectionService;
     }
 
-    [Authorize]
     [HttpGet]
     [Route("")]
-    public IEnumerable<Language> getLanguages() => _languageService.GetAllLanguages();
+    public IEnumerable<Section> GetSections() => _sectionService.GetAllSections();
+
+    [HttpGet("{id}")]
+    public ActionResult<Section> GetSectionById([FromRoute] int id)
+    {
+        Section? section = _sectionService.GetSectionById(id);
+        if (section is null) return NotFound();
+
+        return Ok(section);
+    }
 
     [AllowAnonymous]
     [HttpPost]
     [Route("")]
-    public ActionResult<Language> createLanguage([FromBody] Language language) => _languageService.Create(language);
+    public ActionResult<Section> CreateSection([FromBody] CreateSectionDto section)
+    {
+        return Ok(_sectionService.Create(section));
+    }
+
+    [AllowAnonymous]
+    [HttpPatch]
+    [Route("{id}")]
+    public async Task<ActionResult<Section>> UpdateSection([FromBody] UpdateSectionDto section, [FromRoute] int id)
+    {
+        var result = await _sectionService.Update(section, id);
+
+        if (result.IsFailure)
+        {
+            if (result.Error.Code == SectionErrors.NotSection.Code)
+            {
+                return NotFound(result.Error.Description);
+            }
+        }
+
+        return Ok(result.Value);
+    }
+
+    [AllowAnonymous]
+    [HttpDelete]
+    [Route("{id}")]
+    public ActionResult<bool> RemoveSection([FromRoute] int id)
+    {
+        return Ok(_sectionService.Remove(id));
+    }
 }

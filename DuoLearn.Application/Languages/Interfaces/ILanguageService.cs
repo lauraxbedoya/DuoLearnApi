@@ -1,3 +1,4 @@
+using DuoLearn.Domain;
 using DuoLearn.Domain.Models;
 
 namespace DuoLearn.Application.Interfaces
@@ -8,6 +9,6 @@ namespace DuoLearn.Application.Interfaces
         Language? GetLanguageById(int id);
         Language Create(Language language);
         Task<Language> Update(Language language, int id);
-        bool Remove(int id);
+        // Result Remove(int id);
     }
 }

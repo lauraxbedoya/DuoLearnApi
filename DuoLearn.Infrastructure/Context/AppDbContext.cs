@@ -10,17 +10,5 @@ public class AppDbContext : DbContext
 
     public DbSet<User> Users { get; set; }
     public DbSet<Language> Languages { get; set; }
-
-
-    // protected override void OnModelCreating(ModelBuilder modelBuilder)
-    // {
-    //     modelBuilder.Entity<User>()
-    //         .HasMany(e => e.Languages)
-    //         .WithMany(e => e.Users)
-    //         .UsingEntity(
-    //         "UserLanguages",
-    //         l => l.HasOne(typeof(Language)).WithMany().HasForeignKey("UserId").HasPrincipalKey(nameof(User.Id)),
-    //         r => r.HasOne(typeof(User)).WithMany().HasForeignKey("LanguageId").HasPrincipalKey(nameof(Language.Id)),
-    //         j => j.HasKey("LanguageId", "UserId"));
-    // }
+    public DbSet<Section> Sections { get; set; }
 }

@@ -56,11 +56,21 @@ public class LanguagesController : ControllerBase
         return Ok(updatedLanguage);
     }
 
-    [AllowAnonymous]
-    [HttpDelete]
-    [Route("{id}")]
-    public ActionResult<bool> RemoveLanguage([FromRoute] int id)
-    {
-        return Ok(_languageService.Remove(id));
-    }
+    // [AllowAnonymous]
+    // [HttpDelete]
+    // [Route("{id}")]
+    // public async Task<ActionResult<bool>> RemoveLanguage([FromRoute] int id)
+    // {
+    //     var result = await _languageService.Remove(id);
+
+    //     if (result.IsFailure)
+    //     {
+    //         if (result.Error.Code == LanguageErrors.NotSection.Code)
+    //         {
+    //             return NotFound(result.Error.Description);
+    //         }
+    //     }
+
+    //     return Ok(result.Value);
+    // }
 }

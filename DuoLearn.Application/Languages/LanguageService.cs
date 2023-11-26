@@ -7,6 +7,8 @@ using DuoLearn.Application;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography.X509Certificates;
+using DuoLearn.Domain;
 
 namespace DuoLearn.Applications
 {
@@ -58,11 +60,21 @@ namespace DuoLearn.Applications
             return currentLanguage;
         }
 
-        public bool Remove(int id)
-        {
-            _context.Remove(id);
-            _context.SaveChanges();
-            return true;
-        }
+        // public Result Remove(int id)
+        // {
+        //     var language = _context.Languages.FirstOrDefault((lang) => lang.Id == id);
+        //     if (language is null)
+        //     {
+        //         return Result.Failure(LanguageErrors.NotSection);
+        //     }
+        //     _context.Remove(language);
+        //     _context.SaveChanges();
+        //     return Result.Success();
+        // }
     }
+}
+
+public static class LanguageErrors
+{
+    public static readonly Error NotSection = new("Language Not Found");
 }

@@ -8,6 +8,6 @@ namespace DuoLearn.Domain.Models
 
         public IList<UserLanguage> UserLanguages { get; } = new List<UserLanguage>();
         public IList<User> Users { get; } = new List<User>();
-        // public IList<Section> Sections { get; } = new List<Section>();
+        public IList<Section> Sections { get; } = new List<Section>();
     }
 }
