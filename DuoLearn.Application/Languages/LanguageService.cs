@@ -47,34 +47,37 @@ namespace DuoLearn.Applications
             return languageEntity;
         }
 
-        public async Task<Language> Update(Language language, int id)
+        public async Task<Result<Language>> UpdateAsync(Language language, int id)
         {
             var currentLanguage = await _context.Languages.FirstOrDefaultAsync(x => x.Id == id);
-            if (currentLanguage == null)
+            if (currentLanguage is null)
             {
-                return null;
+                return Result.Failure<Language>(LanguageErrors.NotLanguageFound);
             }
+            
             currentLanguage.Name = language.Name;
             currentLanguage.FlagUrl = language.FlagUrl;
             _context.SaveChanges();
-            return currentLanguage;
+
+            return Result.Success(currentLanguage);
         }
 
-        // public Result Remove(int id)
-        // {
-        //     var language = _context.Languages.FirstOrDefault((lang) => lang.Id == id);
-        //     if (language is null)
-        //     {
-        //         return Result.Failure(LanguageErrors.NotSection);
-        //     }
-        //     _context.Remove(language);
-        //     _context.SaveChanges();
-        //     return Result.Success();
-        // }
+        public async Task<Result> RemoveAsync(int id)
+        {
+            var language = await _context.Languages.FirstOrDefaultAsync((lang) => lang.Id == id);
+            if (language is null)
+            {
+                return Result.Failure(LanguageErrors.NotLanguageFound);
+            }
+            _context.Remove(language);
+            await _context.SaveChangesAsync();
+
+            return Result.Success();
+        }
     }
 }
 
 public static class LanguageErrors
 {
-    public static readonly Error NotSection = new("Language Not Found");
+    public static readonly Error NotLanguageFound = new("Language Not Found");
 }

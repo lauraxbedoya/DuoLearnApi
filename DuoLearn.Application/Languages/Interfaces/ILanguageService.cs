@@ -8,7 +8,7 @@ namespace DuoLearn.Application.Interfaces
         IEnumerable<Language> GetAllLanguages();
         Language? GetLanguageById(int id);
         Language Create(Language language);
-        Task<Language> Update(Language language, int id);
-        // Result Remove(int id);
+        Task<Result<Language>> UpdateAsync(Language language, int id);
+        Task<Result> RemoveAsync(int id);
     }
 }

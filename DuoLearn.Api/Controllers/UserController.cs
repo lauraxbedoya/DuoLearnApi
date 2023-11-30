@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DuoLearn.Api;
 
-[Authorize]
+// [Authorize]
 [ApiController]
 [Route("users")]
 public class UsersCrontroller : ControllerBase

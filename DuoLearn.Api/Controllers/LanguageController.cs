@@ -46,7 +46,7 @@ public class LanguagesController : ControllerBase
     [Route("{id}")]
     public async Task<ActionResult<Language>> UpdateLanguage([FromBody] Language language, [FromRoute] int id)
     {
-        var updatedLanguage = await _languageService.Update(language, id);
+        var updatedLanguage = await _languageService.UpdateAsync(language, id);
 
         if (updatedLanguage is null)
         {
@@ -56,21 +56,21 @@ public class LanguagesController : ControllerBase
         return Ok(updatedLanguage);
     }
 
-    // [AllowAnonymous]
-    // [HttpDelete]
-    // [Route("{id}")]
-    // public async Task<ActionResult<bool>> RemoveLanguage([FromRoute] int id)
-    // {
-    //     var result = await _languageService.Remove(id);
+    [AllowAnonymous]
+    [HttpDelete]
+    [Route("{id}")]
+    public async Task<ActionResult<bool>> RemoveLanguage([FromRoute] int id)
+    {
+        var result = await _languageService.RemoveAsync(id);
 
-    //     if (result.IsFailure)
-    //     {
-    //         if (result.Error.Code == LanguageErrors.NotSection.Code)
-    //         {
-    //             return NotFound(result.Error.Description);
-    //         }
-    //     }
+        if (result.IsFailure)
+        {
+            if (result.Error.Code == LanguageErrors.NotLanguageFound.Code)
+            {
+                return NotFound(result.Error.Description);
+            }
+        }
 
-    //     return Ok(result.Value);
-    // }
+        return Ok(true);
+    }
 }
