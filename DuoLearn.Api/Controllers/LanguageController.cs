@@ -36,7 +36,7 @@ public class LanguagesController : ControllerBase
     [AllowAnonymous]
     [HttpPost]
     [Route("")]
-    public ActionResult<Language> CreateLanguage([FromBody] Language language)
+    public ActionResult<Language> CreateLanguage([FromBody] CreateLanguageDto language)
     {
         return Ok(_languageService.Create(language));
     }
@@ -44,7 +44,7 @@ public class LanguagesController : ControllerBase
     [AllowAnonymous]
     [HttpPatch]
     [Route("{id}")]
-    public async Task<ActionResult<Language>> UpdateLanguage([FromBody] Language language, [FromRoute] int id)
+    public async Task<ActionResult<Language>> UpdateLanguage([FromBody] UpdateLanguageDto language, [FromRoute] int id)
     {
         var updatedLanguage = await _languageService.UpdateAsync(language, id);
 

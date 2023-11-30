@@ -18,7 +18,7 @@ public class Result
     public bool IsFailure => !IsSuccess;
     public Error Error { get; }
     public static Result Success() => new(true, Error.None);
-    public static Result<T> Success<T>(T value) => new Result<T>(value, true, null);
+    public static Result<T> Success<T>(T value) => new Result<T>(value, true, Error.None);
     public static Result Failure(Error error) => new(false, error);
     public static Result<T> Failure<T>(Error error) => new Result<T>(default, false, error);
 
@@ -26,9 +26,9 @@ public class Result
 
 public class Result<T> : Result
 {
-    public T Value { get; set; }
+    public T? Value { get; set; }
 
-    protected internal Result(T value, bool success, Error error) : base(success, error)
+    protected internal Result(T? value, bool success, Error error) : base(success, error)
     {
         Value = value;
     }

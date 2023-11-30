@@ -33,7 +33,7 @@ namespace DuoLearn.Applications
             return _context.Languages.FirstOrDefault(x => x.Id == id);
         }
 
-        public Language Create(Language language)
+        public Language Create(CreateLanguageDto language)
         {
             var languageEntity = new Language()
             {
@@ -47,16 +47,16 @@ namespace DuoLearn.Applications
             return languageEntity;
         }
 
-        public async Task<Result<Language>> UpdateAsync(Language language, int id)
+        public async Task<Result<Language>> UpdateAsync(UpdateLanguageDto language, int id)
         {
             var currentLanguage = await _context.Languages.FirstOrDefaultAsync(x => x.Id == id);
             if (currentLanguage is null)
             {
                 return Result.Failure<Language>(LanguageErrors.NotLanguageFound);
             }
-            
-            currentLanguage.Name = language.Name;
-            currentLanguage.FlagUrl = language.FlagUrl;
+
+            currentLanguage.Name = language.Name ?? currentLanguage.Name;
+            currentLanguage.FlagUrl = language.FlagUrl ?? currentLanguage.FlagUrl;
             _context.SaveChanges();
 
             return Result.Success(currentLanguage);
