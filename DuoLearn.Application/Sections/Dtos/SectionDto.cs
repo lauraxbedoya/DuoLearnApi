@@ -9,7 +9,7 @@ public class CreateSectionDto
     public required string Color { get; set; }
     public required int Order { get; set; }
     public required bool Enabled { get; set; }
-}
+}  
 
 
 public class UpdateSectionDto

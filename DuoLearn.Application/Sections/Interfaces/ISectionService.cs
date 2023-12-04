@@ -6,9 +6,10 @@ namespace DuoLearn.Application.Interfaces
     public interface ISectionService
     {
         IEnumerable<Section> GetAllSections();
-        Section? GetSectionById(int id);
+        // Section? GetSectionById(int id);
         Section Create(CreateSectionDto section);
-        Task<Result<Section>> Update(UpdateSectionDto section, int id);
-        bool Remove(int id);
+        Task<Result<Section>> UpdateAsync(UpdateSectionDto section, int id);
+        Task<Result> RemoveAsync(int id);
+        IList<Section> GetSectionLanguageById(int languageId);
     }
 }

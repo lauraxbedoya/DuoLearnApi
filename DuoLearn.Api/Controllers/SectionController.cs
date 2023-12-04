@@ -23,13 +23,22 @@ public class SectionsController : ControllerBase
     [Route("")]
     public IEnumerable<Section> GetSections() => _sectionService.GetAllSections();
 
-    [HttpGet("{id}")]
-    public ActionResult<Section> GetSectionById([FromRoute] int id)
-    {
-        Section? section = _sectionService.GetSectionById(id);
-        if (section is null) return NotFound();
+    // [HttpGet("{id}")]
+    // public ActionResult<Section> GetSectionById([FromRoute] int id)
+    // {
+    //     Section? section = _sectionService.GetSectionById(id);
+    //     if (section is null) return NotFound();
 
-        return Ok(section);
+    //     return Ok(section);
+    // }
+
+    [HttpGet("{languageId}")]
+    public ActionResult<IList<Section>> GetSectionLanguageById([FromRoute] int languageId)
+    {
+        IList<Section>? sectionLanguage = _sectionService.GetSectionLanguageById(languageId);
+        if (sectionLanguage is null) return NotFound();
+
+        return Ok(sectionLanguage);
     }
 
     [AllowAnonymous]
@@ -45,11 +54,11 @@ public class SectionsController : ControllerBase
     [Route("{id}")]
     public async Task<ActionResult<Section>> UpdateSection([FromBody] UpdateSectionDto section, [FromRoute] int id)
     {
-        var result = await _sectionService.Update(section, id);
+        var result = await _sectionService.UpdateAsync(section, id);
 
         if (result.IsFailure)
         {
-            if (result.Error.Code == SectionErrors.NotSection.Code)
+            if (result.Error.Code == SectionErrors.NotSectionFound.Code)
             {
                 return NotFound(result.Error.Description);
             }
@@ -61,8 +70,18 @@ public class SectionsController : ControllerBase
     [AllowAnonymous]
     [HttpDelete]
     [Route("{id}")]
-    public ActionResult<bool> RemoveSection([FromRoute] int id)
+    public async Task<ActionResult<bool>> RemoveSection([FromRoute] int id)
     {
-        return Ok(_sectionService.Remove(id));
+        var result = await _sectionService.RemoveAsync(id);
+
+        if (result.IsFailure)
+        {
+            if (result.Error.Code == SectionErrors.NotSectionFound.Code)
+            {
+                return NotFound(result.Error.Description);
+            }
+        }
+
+        return Ok(true);
     }
 }

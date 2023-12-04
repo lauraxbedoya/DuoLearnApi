@@ -23,9 +23,14 @@ namespace DuoLearn.Applications
             return sections;
         }
 
-        public Section? GetSectionById(int id)
+        // public Section? GetSectionById(int id)
+        // {
+        //     return _context.Sections.FirstOrDefault(x => x.Id == id);
+        // }
+
+        public IList<Section> GetSectionLanguageById(int languageId)
         {
-            return _context.Sections.FirstOrDefault(x => x.Id == id);
+            return _context.Sections.Where(x => x.LanguageId == languageId).ToList();
         }
 
         public Section Create(CreateSectionDto section)
@@ -45,12 +50,12 @@ namespace DuoLearn.Applications
             return sectionEntity;
         }
 
-        public async Task<Result<Section>> Update(UpdateSectionDto section, int id)
+        public async Task<Result<Section>> UpdateAsync(UpdateSectionDto section, int id)
         {
             var currentSection = await _context.Sections.FirstOrDefaultAsync(x => x.Id == id);
             if (currentSection == null)
             {
-                return Result.Failure<Section>(SectionErrors.NotSection);
+                return Result.Failure<Section>(SectionErrors.NotSectionFound);
             }
 
             currentSection.Description = section.Description ?? currentSection.Description;
@@ -62,17 +67,22 @@ namespace DuoLearn.Applications
             return Result.Success(currentSection);
         }
 
-        public bool Remove(int id)
+        public async Task<Result> RemoveAsync(int id)
         {
-            _context.Remove(id);
-            _context.SaveChanges();
+            var section = await _context.Sections.FirstOrDefaultAsync((sec) => sec.Id == id);
+            if (section is null)
+            {
+                return Result.Failure(SectionErrors.NotSectionFound);
+            }
+            _context.Remove(section);
+            await _context.SaveChangesAsync();
 
-            return true;
+            return Result.Success();
         }
     }
 }
 
 public static class SectionErrors
 {
-    public static readonly Error NotSection = new("Section Not Found");
+    public static readonly Error NotSectionFound = new("Section Not Found");
 }
