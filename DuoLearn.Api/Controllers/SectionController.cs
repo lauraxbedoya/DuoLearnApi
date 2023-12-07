@@ -1,7 +1,6 @@
 using DuoLearn.Application;
 using DuoLearn.Application.Interfaces;
-using DuoLearn.Domain;
-using DuoLearn.Domain.Models;
+    using DuoLearn.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,15 +21,6 @@ public class SectionsController : ControllerBase
     [HttpGet]
     [Route("")]
     public IEnumerable<Section> GetSections() => _sectionService.GetAllSections();
-
-    // [HttpGet("{id}")]
-    // public ActionResult<Section> GetSectionById([FromRoute] int id)
-    // {
-    //     Section? section = _sectionService.GetSectionById(id);
-    //     if (section is null) return NotFound();
-
-    //     return Ok(section);
-    // }
 
     [HttpGet("{languageId}")]
     public ActionResult<IList<Section>> GetSectionLanguageById([FromRoute] int languageId)

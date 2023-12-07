@@ -23,11 +23,6 @@ namespace DuoLearn.Applications
             return sections;
         }
 
-        // public Section? GetSectionById(int id)
-        // {
-        //     return _context.Sections.FirstOrDefault(x => x.Id == id);
-        // }
-
         public IList<Section> GetSectionLanguageById(int languageId)
         {
             return _context.Sections.Where(x => x.LanguageId == languageId).ToList();

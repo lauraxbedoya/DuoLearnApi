@@ -48,6 +48,7 @@ builder.Services.AddTransient<IAuthServices, AuthService>();
 builder.Services.AddTransient<IJwtProvider, JwtProvider>();
 builder.Services.AddTransient<ILanguageService, LanguageServices>();
 builder.Services.AddTransient<ISectionService, SectionServices>();
+builder.Services.AddTransient<ILevelService, LevelServices>();
 
 var app = builder.Build();
 

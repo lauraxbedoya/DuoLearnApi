@@ -10,5 +10,6 @@ namespace DuoLearn.Domain.Models
         public required bool Enabled { get; set; } = true;
 
         public Language Language { get; set; } = null!;
+        public IList<Level> Levels { get; } = new List<Level>();
     }
 }
