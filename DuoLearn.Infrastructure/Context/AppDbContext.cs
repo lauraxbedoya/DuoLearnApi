@@ -12,4 +12,5 @@ public class AppDbContext : DbContext
     public DbSet<Language> Languages { get; set; }
     public DbSet<Section> Sections { get; set; }
     public DbSet<Level> Levels { get; set; }
+    public DbSet<Lesson> Lessons { get; set; }
 }
