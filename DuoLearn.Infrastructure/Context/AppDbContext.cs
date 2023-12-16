@@ -13,4 +13,18 @@ public class AppDbContext : DbContext
     public DbSet<Section> Sections { get; set; }
     public DbSet<Level> Levels { get; set; }
     public DbSet<Lesson> Lessons { get; set; }
+    public DbSet<Question> Questions { get; set; }
+
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<Question>()
+                .Property(e => e.QuestionType)
+                .HasConversion<string>();
+
+            // modelBuilder
+            //     .Entity<Question>()
+            //     .OwnsOne(c => c.Metadata, d => { d.ToJson(); });
+        }
 }

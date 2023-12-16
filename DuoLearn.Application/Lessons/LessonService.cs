@@ -64,7 +64,7 @@ namespace DuoLearn.Application
             var lesson = await _context.Lessons.FirstOrDefaultAsync((less) => less.Id == id);
             if (lesson is null)
             {
-                return Result.Failure(LessonErrors.NotLessonFound);
+                return Result.Failure<Lesson>(LessonErrors.NotLessonFound);
             }
             _context.Remove(lesson);
             await _context.SaveChangesAsync();

@@ -14,8 +14,6 @@ public class CreateLessonDto
 
 public class UpdateLessonDto
 {
-    public string? Title { get; set; }
-
     public string? Experience { get; set; }
     public int? PracticeExperience { get; set; }
     public bool? isPractice { get; set; }

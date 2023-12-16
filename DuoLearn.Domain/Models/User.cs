@@ -1,3 +1,5 @@
+using DuoLearn.Domain.Enums;
+
 namespace DuoLearn.Domain.Models
 {
     public class User

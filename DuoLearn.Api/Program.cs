@@ -50,6 +50,9 @@ builder.Services.AddTransient<ILanguageService, LanguageServices>();
 builder.Services.AddTransient<ISectionService, SectionServices>();
 builder.Services.AddTransient<ILevelService, LevelServices>();
 builder.Services.AddTransient<ILessonService, LessonServices>();
+builder.Services.AddTransient<IQuestionService, QuestionServices>();
+builder.Services.AddTransient<IQuestionValidateService, QuestionValidateService>();
+
 
 var app = builder.Build();
 

@@ -68,7 +68,7 @@ namespace DuoLearn.Application
             var level = await _context.Levels.FirstOrDefaultAsync((lev) => lev.Id == id);
             if (level is null)
             {
-                return Result.Failure(LevelErrors.NotLevelFound);
+                return Result.Failure<Level>(LevelErrors.NotLevelFound);
             }
             _context.Remove(level);
             await _context.SaveChangesAsync();

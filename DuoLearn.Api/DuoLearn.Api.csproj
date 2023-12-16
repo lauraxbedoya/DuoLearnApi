@@ -17,5 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\DuoLearn.Application\DuoLearn.Application.csproj" />
     <ProjectReference Include="..\DuoLearn.Infrastructure\DuoLearn.Infrastructure.csproj" />
+    <ProjectReference Include="..\DuoLearn.Domain\DuoLearn.Domain.csproj" />
   </ItemGroup>
 </Project>
