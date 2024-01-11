@@ -34,7 +34,7 @@ namespace DuoLearn.Application
             {
                 LessonId = question.LessonId,
                 Text = question.Text,
-                Type = question.Type.ToString(),
+                Type = question.Type,
                 Feedback = question.Feedback,
                 Order = question.Order,
                 Metadata = question.Metadata,
@@ -54,7 +54,7 @@ namespace DuoLearn.Application
             }
 
             currentQuestion.Text = question.Text ?? currentQuestion.Text;
-            currentQuestion.Type = question.Type.ToString() ?? currentQuestion.Type.ToString();
+            currentQuestion.Type = question.Type ?? currentQuestion.Type;
             currentQuestion.Feedback = question.Feedback ?? currentQuestion.Feedback;
             currentQuestion.Order = question.Order ?? currentQuestion.Order;
             _context.SaveChanges();
@@ -73,7 +73,7 @@ namespace DuoLearn.Application
             await _context.SaveChangesAsync();
 
             return Result.Success();
-        }   
+        }
     }
 }
 

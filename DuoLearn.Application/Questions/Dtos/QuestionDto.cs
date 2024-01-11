@@ -9,10 +9,10 @@ public class CreateQuestionDto
     public int LessonId { get; set; }
     public required string Text { get; set; }
     public required QuestionType Type { get; set; }
-    public required string Feedback { get; set; }
+    public string? Feedback { get; set; } = null!;
     public required int Order { get; set; }
     public required JsonDocument Metadata { get; set; }
-}  
+}
 
 
 public class UpdateQuestionDto

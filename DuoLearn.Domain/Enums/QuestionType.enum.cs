@@ -2,9 +2,9 @@ namespace DuoLearn.Domain.Enums;
 
 public enum QuestionType
 {
-    TranslateWithTiles,
-    PairWordsWithTiles,
-    ChooseImageAccordingToWord,
-    Conversation,
-    TranslateTyping
+    TranslateWithTiles = 1,
+    PairWordsWithTiles = 2,
+    ChooseImageAccordingToWord = 3,
+    Conversation = 4,
+    TranslateTyping = 5
 }

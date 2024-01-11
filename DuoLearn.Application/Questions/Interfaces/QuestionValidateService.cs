@@ -20,13 +20,19 @@ namespace DuoLearn.Application
 
         public Result<bool> ValidateQuestionMetadata(CreateQuestionDto question)
         {
-            QuestionMetadata? metadata = question.Metadata.Deserialize<QuestionMetadata>();
-            
-            if (metadata is null) {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            QuestionMetadata? metadata = question.Metadata.Deserialize<QuestionMetadata>(options);
+
+            if (metadata is null)
+            {
                 Result.Failure(QuestionErrors.InvalidMetadata);
             }
 
-            switch (question.Type) {
+            switch (question.Type)
+            {
                 case QuestionType.TranslateTyping:
                     return ValidateTranslateTyping(metadata!);
                 case QuestionType.TranslateWithTiles:

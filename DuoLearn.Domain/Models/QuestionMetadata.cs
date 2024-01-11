@@ -10,7 +10,6 @@ namespace DuoLearn.Domain.Models
 
     public class PairMetadata {
         public required string  Word { get; set; }
-
         public required string Match { get; set; }
     }
 }
