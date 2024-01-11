@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DuoLearn.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231213191630_CreateQuestionEntity")]
+    [Migration("20240104015255_CreateQuestionEntity")]
     partial class CreateQuestionEntity
     {
         /// <inheritdoc />
@@ -138,13 +138,12 @@ namespace DuoLearn.Infrastructure.Data.Migrations
                     b.Property<int>("Order")
                         .HasColumnType("integer");
 
-                    b.Property<string>("QuestionType")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

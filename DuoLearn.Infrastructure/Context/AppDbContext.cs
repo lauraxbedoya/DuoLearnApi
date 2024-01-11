@@ -17,14 +17,7 @@ public class AppDbContext : DbContext
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder
-                .Entity<Question>()
-                .Property(e => e.QuestionType)
-                .HasConversion<string>();
+    {
 
-            // modelBuilder
-            //     .Entity<Question>()
-            //     .OwnsOne(c => c.Metadata, d => { d.ToJson(); });
-        }
+    }
 }

@@ -20,7 +20,7 @@ namespace DuoLearn.Infrastructure.Data.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     LessonId = table.Column<int>(type: "integer", nullable: false),
                     Text = table.Column<string>(type: "text", nullable: false),
-                    QuestionType = table.Column<string>(type: "text", nullable: false),
+                    Type = table.Column<int>(type: "integer", nullable: false),
                     Feedback = table.Column<string>(type: "text", nullable: false),
                     Order = table.Column<int>(type: "integer", nullable: false),
                     Metadata = table.Column<JsonDocument>(type: "jsonb", nullable: false)
